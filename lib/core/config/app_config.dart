@@ -16,6 +16,6 @@ class AppConfig {
   );
 
   static const production = AppConfig(
-    baseUrl: 'https://api.yourdomain.com',
+    baseUrl: 'https://sama-xaalis.backnd-api.cloud',
   );
 }

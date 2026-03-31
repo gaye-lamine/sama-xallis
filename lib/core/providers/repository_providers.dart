@@ -20,6 +20,7 @@ import 'unauthorized_provider.dart';
 
 final dioProvider = Provider<Dio>((ref) {
   return DioClient.create(
+    config: AppConfig.production,
     onUnauthorized: () => ref.read(unauthorizedProvider.notifier).state++,
   );
 });
