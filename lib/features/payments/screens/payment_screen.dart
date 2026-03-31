@@ -79,7 +79,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
         : list.where((o) => o.customerId == _selectedCustomer!.id).toList());
 
     return Scaffold(
-      backgroundColor: AppColors.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(title: const Text('Paiement')),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
@@ -161,7 +161,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
                         inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))],
                         autofocus: false,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+                        style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Theme.of(context).colorScheme.onSurface),
                         decoration: InputDecoration(
                           hintText: '0',
                           hintStyle: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.border),
@@ -265,7 +265,7 @@ class _OrderTile extends StatelessWidget {
             if (selected)
               const Icon(Icons.radio_button_checked, color: AppColors.primary, size: 20)
             else
-              const Icon(Icons.radio_button_unchecked, color: AppColors.textSecondary, size: 20),
+              Icon(Icons.radio_button_unchecked, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), size: 20),
             const SizedBox(width: AppSpacing.sm),
             Expanded(
               child: Column(
@@ -273,7 +273,7 @@ class _OrderTile extends StatelessWidget {
                 children: [
                   Text(
                     'Commande du ${order.id.substring(0, 8)}',
-                    style: AppTextStyles.small.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.w500),
+                    style: AppTextStyles.small.copyWith(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w500),
                   ),
                   Text(
                     'Total : ${order.totalAmount.toStringAsFixed(0)} F  •  Payé : ${order.paidAmount.toStringAsFixed(0)} F',
@@ -334,7 +334,7 @@ class _DebtSummary extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _Item(label: 'Total', value: '${order.totalAmount.toStringAsFixed(0)} F', color: AppColors.textPrimary),
+              _Item(label: 'Total', value: '${order.totalAmount.toStringAsFixed(0)} F', color: Theme.of(context).colorScheme.onSurface),
               _Item(label: 'Déjà payé', value: '${order.paidAmount.toStringAsFixed(0)} F', color: AppColors.success),
               _Item(label: 'Reste à payer', value: '${order.remainingAmount.toStringAsFixed(0)} F', color: AppColors.danger, large: true),
             ],

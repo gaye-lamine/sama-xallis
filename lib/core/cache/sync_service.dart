@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../network/connectivity_service.dart';
 import '../providers/repository_providers.dart';
 import '../../features/products/repositories/cached_product_repository.dart';
@@ -9,6 +10,7 @@ class SyncService {
   final CachedProductRepository _products;
   final CachedDebtService _debts;
   final ConnectivityService _connectivity;
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   StreamSubscription<bool>? _sub;
 
@@ -26,6 +28,8 @@ class SyncService {
   }
 
   Future<void> _sync() async {
+    final token = await _storage.read(key: 'auth_token');
+    if (token == null) return;
     await Future.wait([
       _products.sync(),
       _debts.sync(),

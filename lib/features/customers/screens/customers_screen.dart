@@ -19,7 +19,7 @@ class CustomersScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: AppColors.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('Clients'),
         actions: [
@@ -42,7 +42,7 @@ class CustomersScreen extends ConsumerWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).cardColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(AppSpacing.lg)),
       ),
@@ -79,7 +79,7 @@ class _CustomerList extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.wifi_off, size: 48, color: AppColors.textSecondary),
+            Icon(Icons.wifi_off, size: 48, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)),
             const SizedBox(height: AppSpacing.md),
             const Text('Erreur de chargement', style: AppTextStyles.body),
             const SizedBox(height: AppSpacing.lg),
@@ -126,7 +126,7 @@ class _CustomerTile extends ConsumerWidget {
                   children: [
                     Text(user.name, style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600)),
                     Row(children: [
-                      const Icon(Icons.phone_outlined, size: 13, color: AppColors.textSecondary),
+                      Icon(Icons.phone_outlined, size: 13, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)),
                       const SizedBox(width: 4),
                       Text(user.phone, style: AppTextStyles.small),
                     ]),

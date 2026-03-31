@@ -18,7 +18,7 @@ class StatsScreen extends ConsumerWidget {
     final stats = ref.watch(statsProvider);
 
     return Scaffold(
-      backgroundColor: AppColors.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('Statistiques'),
         actions: [
@@ -29,10 +29,6 @@ class StatsScreen extends ConsumerWidget {
               ref.invalidate(debtsProvider);
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () => ref.read(authProvider.notifier).logout(),
-          ),
         ],
       ),
       body: stats.when(
@@ -41,7 +37,7 @@ class StatsScreen extends ConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.wifi_off, size: 48, color: AppColors.textSecondary),
+              Icon(Icons.wifi_off, size: 48, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)),
               const SizedBox(height: AppSpacing.md),
               const Text('Erreur de chargement', style: AppTextStyles.body),
               const SizedBox(height: AppSpacing.lg),
@@ -117,7 +113,7 @@ class _SectionLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
         text.toUpperCase(),
-        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: AppColors.textSecondary, letterSpacing: 1.2),
+        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), letterSpacing: 1.2),
       );
 }
 

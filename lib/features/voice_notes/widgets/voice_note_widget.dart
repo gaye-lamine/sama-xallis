@@ -88,7 +88,7 @@ class _VoiceNoteWidgetState extends ConsumerState<VoiceNoteWidget> {
       children: [
         Row(
           children: [
-            const Icon(Icons.mic_outlined, size: 16, color: AppColors.textSecondary),
+            Icon(Icons.mic_outlined, size: 16, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)),
             const SizedBox(width: AppSpacing.xs),
             const Text('Notes vocales', style: AppTextStyles.small),
             const Spacer(),
@@ -98,7 +98,7 @@ class _VoiceNoteWidgetState extends ConsumerState<VoiceNoteWidget> {
               const SizedBox(width: AppSpacing.sm),
               _Btn(icon: Icons.stop, color: AppColors.danger, onTap: _stopAndUpload),
               const SizedBox(width: AppSpacing.xs),
-              _Btn(icon: Icons.close, color: AppColors.textSecondary, onTap: _cancel),
+              _Btn(icon: Icons.close, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), onTap: _cancel),
             ] else if (_uploading)
               const SizedBox(width: 18, height: 18,
                   child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.primary))
@@ -214,7 +214,7 @@ class _NoteRowState extends State<_NoteRow> {
       margin: const EdgeInsets.only(top: AppSpacing.xs),
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(AppSpacing.sm),
       ),
       child: Row(children: [
@@ -230,7 +230,7 @@ class _NoteRowState extends State<_NoteRow> {
         Expanded(child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Note vocale', style: AppTextStyles.small.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.w500)),
+            Text('Note vocale', style: AppTextStyles.small.copyWith(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.w500)),
             if (widget.note.duration != null)
               Text(_fmt(widget.note.duration), style: AppTextStyles.small),
           ],

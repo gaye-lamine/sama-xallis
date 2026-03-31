@@ -29,7 +29,7 @@ class SalesScreen extends ConsumerWidget {
     });
 
     return Scaffold(
-      backgroundColor: AppColors.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('Ventes'),
         actions: [
@@ -78,7 +78,7 @@ class _ProductGrid extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.wifi_off, size: 48, color: AppColors.textSecondary),
+            Icon(Icons.wifi_off, size: 48, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)),
             const SizedBox(height: AppSpacing.md),
             const Text('Impossible de charger les produits', style: AppTextStyles.body),
             const SizedBox(height: AppSpacing.lg),
@@ -123,7 +123,7 @@ class _ProductCard extends ConsumerWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 120),
         decoration: BoxDecoration(
-          color: AppColors.background,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(AppSpacing.md),
           border: Border.all(
             color: qty > 0 ? AppColors.primary : AppColors.border,
@@ -195,17 +195,17 @@ class _CartPanel extends ConsumerWidget {
 
     if (cart.isEmpty) {
       return Container(
-        color: AppColors.background,
+        color: Theme.of(context).cardColor,
         padding: EdgeInsets.only(
           left: AppSpacing.lg,
           right: AppSpacing.lg,
           top: AppSpacing.lg,
           bottom: MediaQuery.of(context).padding.bottom + AppSpacing.lg,
         ),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.shopping_cart_outlined, color: AppColors.textSecondary, size: 20),
+            Icon(Icons.shopping_cart_outlined, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), size: 20),
             SizedBox(width: AppSpacing.sm),
             Text('Panier vide — appuyez sur un produit', style: AppTextStyles.small),
           ],
@@ -214,7 +214,7 @@ class _CartPanel extends ConsumerWidget {
     }
 
     return Container(
-      color: AppColors.background,
+      color: Theme.of(context).cardColor,
       padding: EdgeInsets.only(
         left: AppSpacing.lg,
         right: AppSpacing.lg,
@@ -240,11 +240,11 @@ class _CartPanel extends ConsumerWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(item.product.name, style: AppTextStyles.small.copyWith(color: AppColors.textPrimary), overflow: TextOverflow.ellipsis),
+                  child: Text(item.product.name, style: AppTextStyles.small.copyWith(color: Theme.of(context).colorScheme.onSurface), overflow: TextOverflow.ellipsis),
                 ),
                 Text('${item.quantity}×${item.product.sellingPrice.toStringAsFixed(0)}', style: AppTextStyles.small),
                 const SizedBox(width: AppSpacing.sm),
-                Text('${item.subtotal.toStringAsFixed(0)} F', style: AppTextStyles.small.copyWith(fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                Text('${item.subtotal.toStringAsFixed(0)} F', style: AppTextStyles.small.copyWith(fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface)),
               ],
             ),
           )),
@@ -252,7 +252,7 @@ class _CartPanel extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('TOTAL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.textSecondary, letterSpacing: 1)),
+              Text('TOTAL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), letterSpacing: 1)),
               Text('${total.toStringAsFixed(0)} F', style: AppTextStyles.amount.copyWith(color: AppColors.primary, fontSize: 26)),
             ],
           ),

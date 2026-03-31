@@ -8,18 +8,12 @@ class AppCard extends StatelessWidget {
   final VoidCallback? onTap;
   final Color? color;
 
-  const AppCard({
-    super.key,
-    required this.child,
-    this.padding,
-    this.onTap,
-    this.color,
-  });
+  const AppCard({super.key, required this.child, this.padding, this.onTap, this.color});
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: color ?? AppColors.background,
+      color: color ?? context.card,
       borderRadius: BorderRadius.circular(AppRadius.large),
       child: InkWell(
         onTap: onTap,
@@ -28,7 +22,7 @@ class AppCard extends StatelessWidget {
           padding: padding ?? const EdgeInsets.all(AppSpacing.lg),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppRadius.large),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: context.borderColor),
           ),
           child: child,
         ),

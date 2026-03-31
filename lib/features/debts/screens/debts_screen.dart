@@ -43,7 +43,7 @@ class _DebtsScreenState extends ConsumerState<DebtsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('Dettes'),
         actions: [
@@ -66,7 +66,7 @@ class _DebtsScreenState extends ConsumerState<DebtsScreen>
       ),
       body: TabBarView(
         controller: _tab,
-        children: const [
+        children: [
           _ManualDebtsList(),
           _CreditOrdersList(),
         ],
@@ -78,7 +78,7 @@ class _DebtsScreenState extends ConsumerState<DebtsScreen>
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).cardColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(AppSpacing.lg)),
       ),
@@ -215,7 +215,7 @@ class _DebtTile extends ConsumerWidget {
                         onTap: () => showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
-                          backgroundColor: AppColors.background,
+                          backgroundColor: Theme.of(context).cardColor,
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(top: Radius.circular(AppSpacing.lg)),
                           ),
@@ -229,7 +229,7 @@ class _DebtTile extends ConsumerWidget {
                             border: Border.all(color: AppColors.primary.withOpacity(0.3)),
                           ),
                           alignment: Alignment.center,
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.payments_outlined, size: 16, color: AppColors.primary),
@@ -325,7 +325,7 @@ class _OrderTile extends ConsumerWidget {
                         onTap: () => showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
-                          backgroundColor: AppColors.background,
+                          backgroundColor: Theme.of(context).cardColor,
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(top: Radius.circular(AppSpacing.lg)),
                           ),
@@ -339,7 +339,7 @@ class _OrderTile extends ConsumerWidget {
                             border: Border.all(color: AppColors.primary.withOpacity(0.3)),
                           ),
                           alignment: Alignment.center,
-                          child: const Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(Icons.payments_outlined, size: 16, color: AppColors.primary),
@@ -525,7 +525,7 @@ class _PaySheetBody extends StatelessWidget {
               inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))],
               autofocus: true,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Theme.of(context).colorScheme.onSurface),
               decoration: const InputDecoration(
                 hintText: '0',
                 hintStyle: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.border),
@@ -600,7 +600,7 @@ class _ErrorView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.wifi_off, size: 48, color: AppColors.textSecondary),
+          Icon(Icons.wifi_off, size: 48, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)),
           const SizedBox(height: AppSpacing.md),
           const Text('Erreur de chargement', style: AppTextStyles.body),
           const SizedBox(height: AppSpacing.lg),
@@ -689,7 +689,7 @@ class _AddDebtSheetState extends ConsumerState<_AddDebtSheet> {
               ],
             ),
             const SizedBox(height: AppSpacing.lg),
-            const Text('Client', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.textPrimary)),
+            Text('Client', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.onSurface)),
             const SizedBox(height: AppSpacing.xs),
             users.when(
               loading: () => const LinearProgressIndicator(),
@@ -743,8 +743,8 @@ class _DatePickerField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Date d\'échéance (optionnel)',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.textPrimary)),
+        Text('Date d\'échéance (optionnel)',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.onSurface)),
         const SizedBox(height: AppSpacing.xs),
         GestureDetector(
           onTap: () async {
@@ -766,7 +766,7 @@ class _DatePickerField extends StatelessWidget {
             height: 48,
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
             decoration: BoxDecoration(
-              color: AppColors.background,
+              color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(AppSpacing.sm),
               border: Border.all(color: selected != null ? AppColors.primary : AppColors.border),
             ),
@@ -787,7 +787,7 @@ class _DatePickerField extends StatelessWidget {
                 if (selected != null)
                   GestureDetector(
                     onTap: () => onChanged(null),
-                    child: const Icon(Icons.close, size: 18, color: AppColors.textSecondary),
+                    child: Icon(Icons.close, size: 18, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)),
                   ),
               ],
             ),

@@ -19,7 +19,7 @@ class ProductsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: AppColors.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('Produits'),
         actions: [
@@ -42,7 +42,7 @@ class ProductsScreen extends ConsumerWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).cardColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(AppSpacing.lg)),
       ),
@@ -55,16 +55,16 @@ class _SearchBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      color: AppColors.background,
+      color: Theme.of(context).cardColor,
       padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.sm, AppSpacing.lg, AppSpacing.md),
       child: TextField(
         onChanged: (v) => ref.read(productSearchProvider.notifier).state = v,
         style: AppTextStyles.body,
         decoration: InputDecoration(
           hintText: 'Rechercher un produit...',
-          prefixIcon: const Icon(Icons.search, color: AppColors.textSecondary, size: 20),
+          prefixIcon: Icon(Icons.search, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), size: 20),
           filled: true,
-          fillColor: AppColors.surface,
+          fillColor: Theme.of(context).scaffoldBackgroundColor,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(AppSpacing.sm),
             borderSide: BorderSide.none,
@@ -89,7 +89,7 @@ class _ProductList extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.wifi_off, size: 48, color: AppColors.textSecondary),
+            Icon(Icons.wifi_off, size: 48, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)),
             const SizedBox(height: AppSpacing.md),
             const Text('Erreur de chargement', style: AppTextStyles.body),
             const SizedBox(height: AppSpacing.lg),

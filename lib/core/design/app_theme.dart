@@ -3,81 +3,76 @@ import 'app_colors.dart';
 import 'app_spacing.dart';
 
 class AppTheme {
-  static ThemeData get light {
+  static ThemeData get light => _build(
+        brightness: Brightness.light,
+        background: AppColors.background,
+        surface: AppColors.surface,
+        textPrimary: AppColors.textPrimary,
+        textSecondary: AppColors.textSecondary,
+        border: AppColors.border,
+        cardColor: AppColors.background,
+      );
+
+  static ThemeData get dark => _build(
+        brightness: Brightness.dark,
+        background: const Color(0xFF111111),
+        surface: const Color(0xFF1C1C1E),
+        textPrimary: const Color(0xFFF2F2F7),
+        textSecondary: const Color(0xFF8E8E93),
+        border: const Color(0xFF2C2C2E),
+        cardColor: const Color(0xFF1C1C1E),
+      );
+
+  static ThemeData _build({
+    required Brightness brightness,
+    required Color background,
+    required Color surface,
+    required Color textPrimary,
+    required Color textSecondary,
+    required Color border,
+    required Color cardColor,
+  }) {
     return ThemeData(
       useMaterial3: true,
-      scaffoldBackgroundColor: AppColors.surface,
-      colorScheme: const ColorScheme.light(
+      brightness: brightness,
+      scaffoldBackgroundColor: surface,
+      colorScheme: ColorScheme(
+        brightness: brightness,
         primary: AppColors.primary,
-        surface: AppColors.surface,
+        onPrimary: Colors.white,
+        secondary: AppColors.primary,
+        onSecondary: Colors.white,
         error: AppColors.danger,
+        onError: Colors.white,
+        surface: surface,
+        onSurface: textPrimary,
       ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.background,
-        foregroundColor: AppColors.textPrimary,
+      appBarTheme: AppBarTheme(
+        backgroundColor: cardColor,
+        foregroundColor: textPrimary,
         elevation: 0,
         scrolledUnderElevation: 0,
-        titleTextStyle: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          color: AppColors.textPrimary,
-        ),
+        titleTextStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: textPrimary),
       ),
-      navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: AppColors.background,
-        indicatorColor: AppColors.primary.withOpacity(0.12),
-        iconTheme: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) {
-            return const IconThemeData(color: AppColors.primary, size: 24);
-          }
-          return const IconThemeData(color: AppColors.textSecondary, size: 24);
-        }),
-        labelTextStyle: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) {
-            return const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: AppColors.primary,
-            );
-          }
-          return const TextStyle(
-            fontSize: 12,
-            color: AppColors.textSecondary,
-          );
-        }),
-        height: 64,
-      ),
+      cardColor: cardColor,
+      dividerTheme: DividerThemeData(color: border, thickness: 1, space: 0),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.background,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.md,
-          vertical: AppSpacing.md,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.medium),
-          borderSide: const BorderSide(color: AppColors.border),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.medium),
-          borderSide: const BorderSide(color: AppColors.border),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.medium),
-          borderSide: const BorderSide(color: AppColors.primary, width: 2),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.medium),
-          borderSide: const BorderSide(color: AppColors.danger),
-        ),
-        labelStyle: const TextStyle(color: AppColors.textSecondary, fontSize: 14),
-        hintStyle: const TextStyle(color: AppColors.textSecondary, fontSize: 16),
-      ),
-      dividerTheme: const DividerThemeData(
-        color: AppColors.border,
-        thickness: 1,
-        space: 0,
+        fillColor: surface,
+        contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.md),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppRadius.medium), borderSide: BorderSide(color: border)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppRadius.medium), borderSide: BorderSide(color: border)),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppRadius.medium), borderSide: const BorderSide(color: AppColors.primary, width: 2)),
+        errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppRadius.medium), borderSide: const BorderSide(color: AppColors.danger)),
+        labelStyle: TextStyle(color: textSecondary, fontSize: 14),
+        hintStyle: TextStyle(color: textSecondary, fontSize: 16),
       ),
     );
   }
+}
+
+class AppRadius {
+  static const double small = 6;
+  static const double medium = 10;
+  static const double large = 16;
 }

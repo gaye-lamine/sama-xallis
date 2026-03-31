@@ -32,10 +32,10 @@ class QtyControl extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             '$value',
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
-              color: AppColors.textPrimary,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ),

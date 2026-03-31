@@ -31,7 +31,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).cardColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -51,7 +51,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
             const SizedBox(height: AppSpacing.xl),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
-              decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(AppSpacing.sm)),
+              decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor, borderRadius: BorderRadius.circular(AppSpacing.sm)),
               child: TabBar(
                 controller: _tab,
                 labelColor: Colors.white,
@@ -151,12 +151,12 @@ class _LoginTabState extends ConsumerState<_LoginTab> {
               decoration: InputDecoration(
                 hintText: '77 000 00 00',
                 hintStyle: const TextStyle(color: AppColors.border, fontSize: 20, letterSpacing: 2),
-                filled: true, fillColor: AppColors.surface,
+                filled: true, fillColor: Theme.of(context).scaffoldBackgroundColor,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.sm), borderSide: BorderSide.none),
                 focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.sm), borderSide: const BorderSide(color: AppColors.primary, width: 2)),
                 errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.sm), borderSide: const BorderSide(color: AppColors.danger)),
                 errorText: _phoneError,
-                prefixIcon: const Icon(Icons.phone_outlined, color: AppColors.textSecondary),
+                prefixIcon: Icon(Icons.phone_outlined, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5)),
               ),
             ),
             const SizedBox(height: AppSpacing.xl),
@@ -299,16 +299,16 @@ class _Field extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+        Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface)),
         const SizedBox(height: AppSpacing.xs),
         TextFormField(
           controller: ctrl, keyboardType: type, validator: validator,
-          style: const TextStyle(fontSize: 16, color: AppColors.textPrimary),
+          style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onSurface),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(color: AppColors.textSecondary, fontSize: 15),
-            prefixIcon: Icon(icon, color: AppColors.textSecondary, size: 20),
-            filled: true, fillColor: AppColors.surface,
+            hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), fontSize: 15),
+            prefixIcon: Icon(icon, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), size: 20),
+            filled: true, fillColor: Theme.of(context).scaffoldBackgroundColor,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.sm), borderSide: BorderSide.none),
             focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.sm), borderSide: const BorderSide(color: AppColors.primary, width: 2)),
             errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSpacing.sm), borderSide: const BorderSide(color: AppColors.danger)),
@@ -361,11 +361,11 @@ class _Keypad extends StatelessWidget {
         return GestureDetector(
           onTap: () => k == '⌫' ? onDelete() : onKey(k),
           child: Container(
-            decoration: BoxDecoration(color: AppColors.surface, borderRadius: BorderRadius.circular(AppSpacing.sm), border: Border.all(color: AppColors.border)),
+            decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor, borderRadius: BorderRadius.circular(AppSpacing.sm), border: Border.all(color: AppColors.border)),
             alignment: Alignment.center,
             child: k == '⌫'
-                ? const Icon(Icons.backspace_outlined, size: 22, color: AppColors.textSecondary)
-                : Text(k, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                ? Icon(Icons.backspace_outlined, size: 22, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5))
+                : Text(k, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface)),
           ),
         );
       }).toList(),

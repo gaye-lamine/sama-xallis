@@ -32,14 +32,7 @@ class AppInput extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: AppColors.textPrimary,
-          ),
-        ),
+        Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: context.textPrimary)),
         const SizedBox(height: AppSpacing.xs),
         TextFormField(
           controller: controller,
@@ -48,13 +41,12 @@ class AppInput extends StatelessWidget {
           validator: validator,
           obscureText: obscureText,
           maxLines: maxLines,
-          style: const TextStyle(
-            fontSize: 16,
-            color: AppColors.textPrimary,
-          ),
+          style: TextStyle(fontSize: 16, color: context.textPrimary),
           decoration: InputDecoration(
             hintText: hint,
             suffixIcon: suffix,
+            filled: true,
+            fillColor: context.surfaceColor,
           ),
         ),
       ],
