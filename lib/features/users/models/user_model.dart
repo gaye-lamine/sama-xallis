@@ -1,0 +1,16 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../../core/utils/json_converters.dart';
+
+part 'user_model.freezed.dart';
+part 'user_model.g.dart';
+
+@freezed
+class User with _$User {
+  const factory User({
+    @FlexibleIdConverter() required String id,
+    required String name,
+    required String phone,
+  }) = _User;
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}

@@ -1,0 +1,272 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'debt_model.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+
+Debt _$DebtFromJson(Map<String, dynamic> json) {
+  return _Debt.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Debt {
+  @FlexibleIdConverter()
+  String get id => throw _privateConstructorUsedError;
+  @FlexibleIdConverter()
+  String get customerId => throw _privateConstructorUsedError;
+  double get amount => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
+  String? get dueDate => throw _privateConstructorUsedError;
+
+  /// Serializes this Debt to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Debt
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $DebtCopyWith<Debt> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DebtCopyWith<$Res> {
+  factory $DebtCopyWith(Debt value, $Res Function(Debt) then) =
+      _$DebtCopyWithImpl<$Res, Debt>;
+  @useResult
+  $Res call(
+      {@FlexibleIdConverter() String id,
+      @FlexibleIdConverter() String customerId,
+      double amount,
+      String description,
+      String status,
+      String? dueDate});
+}
+
+/// @nodoc
+class _$DebtCopyWithImpl<$Res, $Val extends Debt>
+    implements $DebtCopyWith<$Res> {
+  _$DebtCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Debt
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? customerId = null,
+    Object? amount = null,
+    Object? description = null,
+    Object? status = null,
+    Object? dueDate = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      customerId: null == customerId
+          ? _value.customerId
+          : customerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      amount: null == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as double,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      dueDate: freezed == dueDate
+          ? _value.dueDate
+          : dueDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$DebtImplCopyWith<$Res> implements $DebtCopyWith<$Res> {
+  factory _$$DebtImplCopyWith(
+          _$DebtImpl value, $Res Function(_$DebtImpl) then) =
+      __$$DebtImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@FlexibleIdConverter() String id,
+      @FlexibleIdConverter() String customerId,
+      double amount,
+      String description,
+      String status,
+      String? dueDate});
+}
+
+/// @nodoc
+class __$$DebtImplCopyWithImpl<$Res>
+    extends _$DebtCopyWithImpl<$Res, _$DebtImpl>
+    implements _$$DebtImplCopyWith<$Res> {
+  __$$DebtImplCopyWithImpl(_$DebtImpl _value, $Res Function(_$DebtImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Debt
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? customerId = null,
+    Object? amount = null,
+    Object? description = null,
+    Object? status = null,
+    Object? dueDate = freezed,
+  }) {
+    return _then(_$DebtImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      customerId: null == customerId
+          ? _value.customerId
+          : customerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      amount: null == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as double,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      dueDate: freezed == dueDate
+          ? _value.dueDate
+          : dueDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$DebtImpl implements _Debt {
+  const _$DebtImpl(
+      {@FlexibleIdConverter() required this.id,
+      @FlexibleIdConverter() required this.customerId,
+      required this.amount,
+      required this.description,
+      required this.status,
+      this.dueDate});
+
+  factory _$DebtImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DebtImplFromJson(json);
+
+  @override
+  @FlexibleIdConverter()
+  final String id;
+  @override
+  @FlexibleIdConverter()
+  final String customerId;
+  @override
+  final double amount;
+  @override
+  final String description;
+  @override
+  final String status;
+  @override
+  final String? dueDate;
+
+  @override
+  String toString() {
+    return 'Debt(id: $id, customerId: $customerId, amount: $amount, description: $description, status: $status, dueDate: $dueDate)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DebtImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.customerId, customerId) ||
+                other.customerId == customerId) &&
+            (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.dueDate, dueDate) || other.dueDate == dueDate));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, id, customerId, amount, description, status, dueDate);
+
+  /// Create a copy of Debt
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DebtImplCopyWith<_$DebtImpl> get copyWith =>
+      __$$DebtImplCopyWithImpl<_$DebtImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DebtImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Debt implements Debt {
+  const factory _Debt(
+      {@FlexibleIdConverter() required final String id,
+      @FlexibleIdConverter() required final String customerId,
+      required final double amount,
+      required final String description,
+      required final String status,
+      final String? dueDate}) = _$DebtImpl;
+
+  factory _Debt.fromJson(Map<String, dynamic> json) = _$DebtImpl.fromJson;
+
+  @override
+  @FlexibleIdConverter()
+  String get id;
+  @override
+  @FlexibleIdConverter()
+  String get customerId;
+  @override
+  double get amount;
+  @override
+  String get description;
+  @override
+  String get status;
+  @override
+  String? get dueDate;
+
+  /// Create a copy of Debt
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DebtImplCopyWith<_$DebtImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

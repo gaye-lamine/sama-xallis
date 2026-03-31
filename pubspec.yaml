@@ -1,0 +1,46 @@
+name: gestion_dette_frontend
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  dio: ^5.7.0
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+  flutter_riverpod: ^2.6.1
+  hive_flutter: ^1.1.0
+  connectivity_plus: ^6.1.4
+  url_launcher: ^6.3.1
+  flutter_contacts: ^1.1.9+2
+  flutter_secure_storage: ^9.2.4
+  record: ^6.0.0
+  just_audio: ^0.9.42
+  path_provider: ^2.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+  build_runner: ^2.4.13
+  flutter_launcher_icons: ^0.14.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icon/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#0A84FF"
+  adaptive_icon_foreground: "assets/icon/app_icon.png"
