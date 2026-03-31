@@ -16,6 +16,7 @@ import '../../features/debts/models/debt_model.dart';
 import '../../features/orders/models/order_model.dart';
 import '../network/dio_client.dart';
 import '../network/connectivity_service.dart';
+import '../config/app_config.dart';
 import 'unauthorized_provider.dart';
 
 final dioProvider = Provider<Dio>((ref) {
