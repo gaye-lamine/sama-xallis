@@ -1,4 +1,4 @@
-# Sama Xaalis 💰
+# Sama Xaalis
 
 Application mobile de gestion de ventes, dettes et paiements pour vendeurs terrain.  
 Conçue pour des utilisateurs non techniques — interface simple, rapide, pensée caisse physique.
@@ -21,16 +21,16 @@ Conçue pour des utilisateurs non techniques — interface simple, rapide, pens�
 
 | Module | Description |
 |--------|-------------|
-| 🔐 Auth | Connexion par téléphone + PIN 4 chiffres |
-| 🛒 Ventes | Caisse POS — ajout produits, panier, cash/crédit |
-| 📦 Produits | Catalogue avec indicateur de stock coloré |
-| 👥 Clients | Import depuis contacts, notes vocales |
-| 💸 Dettes | Manuelles + commandes crédit, paiement par tranche |
-| 💳 Paiements | Historique par commande |
-| 📊 Stats | CA, encaissements, taux de recouvrement |
-| 📤 Exports | PDF/CSV via Cloudinary (commandes, dettes, rapport) |
-| 🎙️ Notes vocales | Enregistrement audio sur dettes et clients |
-| 📶 Offline | Cache Hive, sync automatique au retour en ligne |
+| Auth | Connexion par téléphone + PIN 4 chiffres |
+| Ventes | Caisse POS — ajout produits, panier, cash/crédit |
+| Produits | Catalogue avec indicateur de stock coloré |
+| Clients | Import depuis contacts, notes vocales |
+| Dettes | Manuelles + commandes crédit, paiement par tranche |
+| Paiements | Historique par commande |
+| Stats | CA, encaissements, taux de recouvrement |
+| Exports | PDF/CSV via Cloudinary (commandes, dettes, rapport) |
+| Notes vocales | Enregistrement audio sur dettes et clients |
+| Offline | Cache Hive, sync automatique au retour en ligne |
 
 ---
 
