@@ -13,6 +13,7 @@ _$DebtImpl _$$DebtImplFromJson(Map<String, dynamic> json) => _$DebtImpl(
       description: json['description'] as String,
       status: json['status'] as String? ?? 'pending',
       dueDate: json['dueDate'] as String?,
+      remainingAmount: (json['remainingAmount'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$DebtImplToJson(_$DebtImpl instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$$DebtImplToJson(_$DebtImpl instance) =>
       'description': instance.description,
       'status': instance.status,
       'dueDate': instance.dueDate,
+      'remainingAmount': instance.remainingAmount,
     };

@@ -386,25 +386,40 @@ class _DebtPaySheetState extends ConsumerState<_DebtPaySheet> {
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     final paid = double.parse(_controller.text);
+    final navigator = Navigator.of(context);
+    final messenger = ScaffoldMessenger.of(context);
     await ref.read(markDebtPaidProvider(widget.debt.id).notifier).payAmount(paid);
     if (!mounted) return;
     final state = ref.read(markDebtPaidProvider(widget.debt.id));
     if (state.hasError) {
       AppFeedback.error(context, 'Erreur lors du paiement');
     } else {
-      AppFeedback.success(context, 'Paiement enregistré');
-      Navigator.of(context).pop();
+      navigator.pop();
+      messenger.showSnackBar(const SnackBar(
+        content: Text('Paiement enregistré'),
+        backgroundColor: AppColors.success,
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 2),
+      ));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final isLoading = ref.watch(markDebtPaidProvider(widget.debt.id)).isLoading;
+    final historyAsync = ref.watch(debtPaymentHistoryProvider(widget.debt.id));
+
+    // Use remainingAfter from last payment, or debt.remainingAmount, or debt.amount
+    final remaining = historyAsync.whenOrNull(
+          data: (list) => list.isNotEmpty ? list.first.remainingAfter : null,
+        ) ??
+        widget.debt.remainingAmount ??
+        widget.debt.amount;
 
     return _PaySheetBody(
       title: 'Paiement dette',
       userName: widget.userName,
-      totalAmount: widget.debt.amount,
+      totalAmount: remaining,
       controller: _controller,
       formKey: _formKey,
       isLoading: isLoading,
@@ -435,6 +450,8 @@ class _OrderPaySheetState extends ConsumerState<_OrderPaySheet> {
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     final amount = double.parse(_controller.text);
+    final navigator = Navigator.of(context);
+    final messenger = ScaffoldMessenger.of(context);
     await ref.read(orderPaymentProvider.notifier).pay(
           orderId: widget.order.id,
           amount: amount,
@@ -444,8 +461,13 @@ class _OrderPaySheetState extends ConsumerState<_OrderPaySheet> {
     if (state.hasError) {
       AppFeedback.error(context, 'Erreur lors du paiement');
     } else {
-      AppFeedback.success(context, 'Paiement enregistré');
-      Navigator.of(context).pop();
+      navigator.pop();
+      messenger.showSnackBar(const SnackBar(
+        content: Text('Paiement enregistré'),
+        backgroundColor: AppColors.success,
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 2),
+      ));
     }
   }
 

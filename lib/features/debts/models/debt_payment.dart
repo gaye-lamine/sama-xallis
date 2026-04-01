@@ -14,14 +14,15 @@ class DebtPayment {
   });
 
   factory DebtPayment.fromJson(Map<String, dynamic> json) => DebtPayment(
-        id: (json['id'] as num).toInt(),
-        debtId: (json['debtId'] as num).toInt(),
-        amount: (json['amount'] as num).toDouble(),
-        remainingAfter: (json['remainingAfter'] as num).toDouble(),
-        paidAt: json['paidAt'] as String,
+        id: (json['id'] as num?)?.toInt() ?? 0,
+        debtId: (json['debtId'] as num?)?.toInt() ?? 0,
+        amount: (json['amount'] as num?)?.toDouble() ?? 0,
+        remainingAfter: (json['remainingAfter'] as num?)?.toDouble() ?? 0,
+        paidAt: json['paidAt']?.toString() ?? '',
       );
 
   String get formattedDate {
+    if (paidAt.isEmpty) return '';
     try {
       final dt = DateTime.parse(paidAt.replaceAll(' ', 'T'));
       final d = dt.day.toString().padLeft(2, '0');

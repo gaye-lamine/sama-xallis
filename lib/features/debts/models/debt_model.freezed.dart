@@ -28,6 +28,7 @@ mixin _$Debt {
   String get description => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
   String? get dueDate => throw _privateConstructorUsedError;
+  double? get remainingAmount => throw _privateConstructorUsedError;
 
   /// Serializes this Debt to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +50,8 @@ abstract class $DebtCopyWith<$Res> {
       double amount,
       String description,
       String status,
-      String? dueDate});
+      String? dueDate,
+      double? remainingAmount});
 }
 
 /// @nodoc
@@ -73,6 +75,7 @@ class _$DebtCopyWithImpl<$Res, $Val extends Debt>
     Object? description = null,
     Object? status = null,
     Object? dueDate = freezed,
+    Object? remainingAmount = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -99,6 +102,10 @@ class _$DebtCopyWithImpl<$Res, $Val extends Debt>
           ? _value.dueDate
           : dueDate // ignore: cast_nullable_to_non_nullable
               as String?,
+      remainingAmount: freezed == remainingAmount
+          ? _value.remainingAmount
+          : remainingAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -116,7 +123,8 @@ abstract class _$$DebtImplCopyWith<$Res> implements $DebtCopyWith<$Res> {
       double amount,
       String description,
       String status,
-      String? dueDate});
+      String? dueDate,
+      double? remainingAmount});
 }
 
 /// @nodoc
@@ -137,6 +145,7 @@ class __$$DebtImplCopyWithImpl<$Res>
     Object? description = null,
     Object? status = null,
     Object? dueDate = freezed,
+    Object? remainingAmount = freezed,
   }) {
     return _then(_$DebtImpl(
       id: null == id
@@ -163,6 +172,10 @@ class __$$DebtImplCopyWithImpl<$Res>
           ? _value.dueDate
           : dueDate // ignore: cast_nullable_to_non_nullable
               as String?,
+      remainingAmount: freezed == remainingAmount
+          ? _value.remainingAmount
+          : remainingAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -176,7 +189,8 @@ class _$DebtImpl implements _Debt {
       required this.amount,
       required this.description,
       this.status = 'pending',
-      this.dueDate});
+      this.dueDate,
+      this.remainingAmount});
 
   factory _$DebtImpl.fromJson(Map<String, dynamic> json) =>
       _$$DebtImplFromJson(json);
@@ -196,10 +210,12 @@ class _$DebtImpl implements _Debt {
   final String status;
   @override
   final String? dueDate;
+  @override
+  final double? remainingAmount;
 
   @override
   String toString() {
-    return 'Debt(id: $id, customerId: $customerId, amount: $amount, description: $description, status: $status, dueDate: $dueDate)';
+    return 'Debt(id: $id, customerId: $customerId, amount: $amount, description: $description, status: $status, dueDate: $dueDate, remainingAmount: $remainingAmount)';
   }
 
   @override
@@ -214,13 +230,15 @@ class _$DebtImpl implements _Debt {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.dueDate, dueDate) || other.dueDate == dueDate));
+            (identical(other.dueDate, dueDate) || other.dueDate == dueDate) &&
+            (identical(other.remainingAmount, remainingAmount) ||
+                other.remainingAmount == remainingAmount));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, customerId, amount, description, status, dueDate);
+  int get hashCode => Object.hash(runtimeType, id, customerId, amount,
+      description, status, dueDate, remainingAmount);
 
   /// Create a copy of Debt
   /// with the given fields replaced by the non-null parameter values.
@@ -245,7 +263,8 @@ abstract class _Debt implements Debt {
       required final double amount,
       required final String description,
       final String status,
-      final String? dueDate}) = _$DebtImpl;
+      final String? dueDate,
+      final double? remainingAmount}) = _$DebtImpl;
 
   factory _Debt.fromJson(Map<String, dynamic> json) = _$DebtImpl.fromJson;
 
@@ -263,6 +282,8 @@ abstract class _Debt implements Debt {
   String get status;
   @override
   String? get dueDate;
+  @override
+  double? get remainingAmount;
 
   /// Create a copy of Debt
   /// with the given fields replaced by the non-null parameter values.

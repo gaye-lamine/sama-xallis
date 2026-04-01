@@ -13,6 +13,7 @@ class Debt with _$Debt {
     required String description,
     @Default('pending') String status,
     String? dueDate,
+    double? remainingAmount,
   }) = _Debt;
 
   factory Debt.fromJson(Map<String, dynamic> json) => _$DebtFromJson(json);
