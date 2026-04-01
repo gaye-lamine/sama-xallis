@@ -11,7 +11,7 @@ _$DebtImpl _$$DebtImplFromJson(Map<String, dynamic> json) => _$DebtImpl(
       customerId: const FlexibleIdConverter().fromJson(json['customerId']),
       amount: (json['amount'] as num).toDouble(),
       description: json['description'] as String,
-      status: json['status'] as String,
+      status: json['status'] as String? ?? 'pending',
       dueDate: json['dueDate'] as String?,
     );
 

@@ -15,6 +15,7 @@ import '../../users/models/user_model.dart';
 import '../../voice_notes/widgets/voice_note_widget.dart';
 import '../models/create_debt_dto.dart';
 import '../models/debt_model.dart';
+import '../models/debt_payment.dart';
 import '../providers/debts_provider.dart';
 
 class DebtsScreen extends ConsumerStatefulWidget {
@@ -209,6 +210,7 @@ class _DebtTile extends ConsumerWidget {
                     ],
                     const SizedBox(height: AppSpacing.sm),
                     VoiceNoteWidget(entityType: 'debt', entityId: debt.id),
+                    _DebtHistoryInline(debtId: debt.id),
                     if (!isPaid) ...[
                       const SizedBox(height: AppSpacing.sm),
                       GestureDetector(
@@ -384,8 +386,7 @@ class _DebtPaySheetState extends ConsumerState<_DebtPaySheet> {
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     final paid = double.parse(_controller.text);
-    await ref.read(markDebtPaidProvider(widget.debt.id).notifier)
-        .payAmount(paid, widget.debt.amount);
+    await ref.read(markDebtPaidProvider(widget.debt.id).notifier).payAmount(paid);
     if (!mounted) return;
     final state = ref.read(markDebtPaidProvider(widget.debt.id));
     if (state.hasError) {
@@ -399,6 +400,7 @@ class _DebtPaySheetState extends ConsumerState<_DebtPaySheet> {
   @override
   Widget build(BuildContext context) {
     final isLoading = ref.watch(markDebtPaidProvider(widget.debt.id)).isLoading;
+
     return _PaySheetBody(
       title: 'Paiement dette',
       userName: widget.userName,
@@ -648,20 +650,30 @@ class _AddDebtSheetState extends ConsumerState<_AddDebtSheet> {
       return;
     }
     if (!_formKey.currentState!.validate()) return;
-    await ref.read(createDebtProvider.notifier).create(CreateDebtDto(
+
+    final navigator = Navigator.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+
+    final error = await ref.read(createDebtProvider.notifier).create(CreateDebtDto(
       customerId: _selectedUser!.id,
       amount: double.parse(_amount.text),
       description: _description.text.trim(),
       dueDate: _dueDate?.toIso8601String(),
     ));
-    if (!mounted) return;
-    final state = ref.read(createDebtProvider);
-    if (state.hasError) {
-      final msg = state.error.toString();
-      AppFeedback.error(context, msg.contains('customerId') ? 'Client requis' : 'Erreur lors de l\'ajout');
+
+    if (error != null) {
+      if (!mounted) return;
+      AppFeedback.error(context, error.contains('customerId') ? 'Client requis' : 'Erreur lors de l\'ajout');
     } else {
-      AppFeedback.success(context, 'Dette enregistrée');
-      Navigator.of(context).pop();
+      navigator.pop();
+      messenger.showSnackBar(SnackBar(
+        content: const Text('Dette enregistrée'),
+        backgroundColor: AppColors.success,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        duration: const Duration(seconds: 2),
+      ));
     }
   }
 
@@ -794,6 +806,113 @@ class _DatePickerField extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _DebtHistoryInline extends ConsumerStatefulWidget {
+  final String debtId;
+  const _DebtHistoryInline({required this.debtId});
+
+  @override
+  ConsumerState<_DebtHistoryInline> createState() => _DebtHistoryInlineState();
+}
+
+class _DebtHistoryInlineState extends ConsumerState<_DebtHistoryInline> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final historyAsync = ref.watch(debtPaymentHistoryProvider(widget.debtId));
+
+    return historyAsync.when(
+      loading: () => const SizedBox.shrink(),
+      error: (_, __) => const SizedBox.shrink(),
+      data: (history) {
+        if (history.isEmpty) return const SizedBox.shrink();
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: AppSpacing.sm),
+            GestureDetector(
+              onTap: () => setState(() => _expanded = !_expanded),
+              child: Row(
+                children: [
+                  Icon(_expanded ? Icons.expand_less : Icons.expand_more,
+                      size: 16, color: AppColors.primary),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${history.length} paiement${history.length > 1 ? 's' : ''}',
+                    style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.primary),
+                  ),
+                ],
+              ),
+            ),
+            if (_expanded) ...[
+              const SizedBox(height: AppSpacing.sm),
+              ...history.map((e) => _HistoryRow(entry: e)),
+            ],
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _HistoryRow extends StatelessWidget {
+  final DebtPayment entry;
+  const _HistoryRow({required this.entry});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: AppSpacing.sm),
+      padding: const EdgeInsets.all(AppSpacing.md),
+      decoration: BoxDecoration(
+        color: AppColors.success.withOpacity(0.06),
+        borderRadius: BorderRadius.circular(AppSpacing.sm),
+        border: Border.all(color: AppColors.success.withOpacity(0.2)),
+      ),
+      child: Row(
+        children: [
+          Icon(entry.isFinal ? Icons.check_circle : Icons.check_circle_outline,
+              size: 16, color: AppColors.success),
+          const SizedBox(width: AppSpacing.sm),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(entry.formattedDate,
+                    style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                const SizedBox(height: 2),
+                Row(
+                  children: [
+                    Text(
+                      entry.isFinal ? 'Dette soldée' : 'Reste : ${entry.remainingAfter.toStringAsFixed(0)} F',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: entry.isFinal ? AppColors.success : null,
+                      ),
+                    ),
+                    if (entry.isFinal) ...[
+                      const SizedBox(width: AppSpacing.xs),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(color: AppColors.success, borderRadius: BorderRadius.circular(999)),
+                        child: const Text('SOLDÉ',
+                            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: Colors.white)),
+                      ),
+                    ],
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Text('+${entry.amount.toStringAsFixed(0)} F',
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.success)),
+        ],
+      ),
     );
   }
 }

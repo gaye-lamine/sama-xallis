@@ -1,6 +1,7 @@
 import '../../../core/cache/hive_boxes.dart';
 import '../../../core/network/connectivity_service.dart';
 import '../models/debt_model.dart';
+import '../models/debt_payment.dart';
 import '../models/create_debt_dto.dart';
 import '../models/update_debt_dto.dart';
 import 'debt_service.dart';
@@ -64,6 +65,12 @@ class CachedDebtService {
     final debts = await _remote.getDebts();
     _writeCache(debts);
   }
+
+  Future<DebtPayment> payDebt(String id, double amount) =>
+      _remote.payDebt(id, amount);
+
+  Future<List<DebtPayment>> getPaymentHistory(String id) =>
+      _remote.getPaymentHistory(id);
 
   void _writeCache(List<Debt> debts) {
     final box = HiveBoxes.debtsBox;

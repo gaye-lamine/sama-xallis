@@ -8,6 +8,7 @@ class HiveBoxes {
     await Hive.initFlutter();
     await Hive.openBox<Map>(products);
     await Hive.openBox<Map>(debts);
+    await Hive.openBox<Map>('debt_payment_history');
   }
 
   static Box<Map> get productsBox => Hive.box<Map>(products);

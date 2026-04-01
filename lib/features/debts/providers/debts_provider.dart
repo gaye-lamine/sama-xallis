@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/debt_model.dart';
+import '../models/debt_payment.dart';
 import '../models/create_debt_dto.dart';
 import '../models/update_debt_dto.dart';
 import '../../orders/models/order_model.dart';
@@ -23,17 +24,23 @@ class CreateDebtNotifier extends AsyncNotifier<void> {
   @override
   Future<void> build() async {}
 
-  Future<void> create(CreateDebtDto dto) async {
-    if (state.isLoading) return;
+  Future<String?> create(CreateDebtDto dto) async {
+    if (state.isLoading) return null;
     state = const AsyncLoading();
     state = await AsyncValue.guard(
       () => ref.read(debtServiceProvider).createDebt(dto),
     );
     if (!state.hasError) {
       ref.invalidate(debtsProvider);
+      return null;
     }
-  }
-}
+    return state.error.toString();
+  }}
+
+final debtPaymentHistoryProvider =
+    FutureProvider.family<List<DebtPayment>, String>((ref, debtId) {
+  return ref.watch(debtServiceProvider).getPaymentHistory(debtId);
+});
 
 final markDebtPaidProvider =
     AsyncNotifierProviderFamily<MarkDebtPaidNotifier, void, String>(
@@ -43,18 +50,15 @@ class MarkDebtPaidNotifier extends FamilyAsyncNotifier<void, String> {
   @override
   Future<void> build(String arg) async {}
 
-  Future<void> payAmount(double paid, double totalAmount) async {
+  Future<void> payAmount(double amount) async {
     if (state.isLoading) return;
     state = const AsyncLoading();
-    final remaining = totalAmount - paid;
-    final dto = remaining <= 0
-        ? const UpdateDebtDto(status: 'paid')
-        : UpdateDebtDto(amount: remaining.clamp(0, double.infinity));
     state = await AsyncValue.guard(
-      () => ref.read(debtServiceProvider).updateDebt(arg, dto),
+      () => ref.read(debtServiceProvider).payDebt(arg, amount),
     );
     if (!state.hasError) {
       ref.invalidate(debtsProvider);
+      ref.invalidate(debtPaymentHistoryProvider(arg));
     }
   }
 }

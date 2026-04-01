@@ -175,7 +175,7 @@ class _$DebtImpl implements _Debt {
       @FlexibleIdConverter() required this.customerId,
       required this.amount,
       required this.description,
-      required this.status,
+      this.status = 'pending',
       this.dueDate});
 
   factory _$DebtImpl.fromJson(Map<String, dynamic> json) =>
@@ -192,6 +192,7 @@ class _$DebtImpl implements _Debt {
   @override
   final String description;
   @override
+  @JsonKey()
   final String status;
   @override
   final String? dueDate;
@@ -243,7 +244,7 @@ abstract class _Debt implements Debt {
       @FlexibleIdConverter() required final String customerId,
       required final double amount,
       required final String description,
-      required final String status,
+      final String status,
       final String? dueDate}) = _$DebtImpl;
 
   factory _Debt.fromJson(Map<String, dynamic> json) = _$DebtImpl.fromJson;

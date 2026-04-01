@@ -83,18 +83,18 @@ class SettingsScreen extends ConsumerWidget {
   void _confirmLogout(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSpacing.md)),
         title: const Text('Déconnexion', style: AppTextStyles.h3),
         content: const Text('Voulez-vous vraiment vous déconnecter ?', style: AppTextStyles.body),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text('Annuler', style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5))),
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: const Text('Annuler'),
           ),
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(dialogContext).pop();
               ref.read(authProvider.notifier).logout();
             },
             child: const Text('Déconnecter', style: TextStyle(color: AppColors.danger, fontWeight: FontWeight.w600)),

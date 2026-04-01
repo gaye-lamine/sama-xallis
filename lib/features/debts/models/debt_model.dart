@@ -11,7 +11,7 @@ class Debt with _$Debt {
     @FlexibleIdConverter() required String customerId,
     required double amount,
     required String description,
-    required String status,
+    @Default('pending') String status,
     String? dueDate,
   }) = _Debt;
 

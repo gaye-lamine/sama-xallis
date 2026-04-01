@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import '../../../core/exceptions/api_exception.dart';
 import '../models/debt_model.dart';
+import '../models/debt_payment.dart';
 import '../models/create_debt_dto.dart';
 import '../models/update_debt_dto.dart';
 
@@ -61,6 +62,24 @@ class DebtService {
   Future<void> deleteDebt(String id) async {
     try {
       await _dio.delete('/api/debts/$id');
+    } on DioException catch (e) {
+      throw _handleError(e);
+    }
+  }
+
+  Future<DebtPayment> payDebt(String id, double amount) async {
+    try {
+      final response = await _dio.post('/api/debts/$id/payments', data: {'amount': amount});
+      return DebtPayment.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (e) {
+      throw _handleError(e);
+    }
+  }
+
+  Future<List<DebtPayment>> getPaymentHistory(String id) async {
+    try {
+      final response = await _dio.get('/api/debts/$id/payments');
+      return (response.data as List).map((e) => DebtPayment.fromJson(e)).toList();
     } on DioException catch (e) {
       throw _handleError(e);
     }

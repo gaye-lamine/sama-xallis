@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/config/app_config.dart';
 import '../../../core/network/dio_client.dart';
 import '../models/auth_user.dart';
 import '../services/auth_service.dart';
 
 final authServiceProvider = Provider<AuthService>(
-  (ref) => AuthService(DioClient.createPublic()),
+  (ref) => AuthService(DioClient.createPublic(AppConfig.production)),
 );
 
 sealed class AuthState {}
